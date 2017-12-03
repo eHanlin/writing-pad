@@ -30,7 +30,7 @@ let ResetButton = DrawingBoard.Control.extend({
     })
   },
 
-  confirmationText:'確定要清除繪圖板?',
+  confirmationText:'確定要清除手寫板?',
 
   disabledConfirmation:false
 
