@@ -125,6 +125,9 @@ Get the container's height.
 Increase container's height.
 
 * height: Input increasing values.
+* opts.slide: The `slide` height/200px if value is true.
+* opts.slideDuration: Durations are given in milliseconds. The default duration is `450`.
+* opts.slideEl: The `slideEl` is element or css selector string which slides scroll top.
 
 ##### resetHeight(height)
 
