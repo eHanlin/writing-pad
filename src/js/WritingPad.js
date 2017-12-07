@@ -255,10 +255,17 @@ class WritingPad extends SimpleObserver {
     return this.$el.height();
   }
 
-  extendHeight(height = 300) {
+  extendHeight(height = 300, {slide = true , slideDuration = 450, slideEl = 'html, body'} = {}) {
     this.$el.height(this.getHeight() + height)
     this.resize();
     this._resizeHintText();
+    let top = $(window).scrollTop();
+
+    if (slide) {
+      $(slideEl).animate({
+        scrollTop:top + height / 2
+      }, slideDuration);
+    }
   }
 
   resetHeight(height) {
