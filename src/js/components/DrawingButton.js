@@ -1,7 +1,8 @@
 
 import $ from 'jQuery';
+import BaseDrawingBoardControl from './BaseDrawingBoardControl';
 
-let DrawingButton = DrawingBoard.Control.extend({
+let DrawingButton = BaseDrawingBoardControl.extend({
 
   name:'drawing',
 
@@ -24,6 +25,7 @@ let DrawingButton = DrawingBoard.Control.extend({
     let ELEMENT_CLASS_NAME = 'drawing-board-control-customize-drawing-button';
 
     this._initOpts(this.opts || {});
+    this.initializeDefault();
     this._initElement(ELEMENT_CLASS_NAME);
     this.$el.on('click', `.${ELEMENT_CLASS_NAME}`, this.onClick.bind(this));
     this.board.ev.bind('board:mode', this.onChangedMode.bind(this));
@@ -46,6 +48,8 @@ let DrawingButton = DrawingBoard.Control.extend({
   onChangedMode: function() {
     this.getButtonElement().removeClass('active');
   },
+
+  DEFAULT_TIP_TEXT:'筆',
 
   color:'rgba(0, 0, 0, 1)',
 

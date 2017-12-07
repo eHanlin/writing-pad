@@ -5,6 +5,7 @@ import less from '../less/main.less';
 //import fontAwesome from 'font-awesome/css/font-awesome.css';
 import * as drawingboard from 'drawingboard';
 import CloseButton from './components/CloseButton';
+import QuestionButton from './components/QuestionButton';
 import GridButton from './components/GridButton';
 import ExtendVerticalButton from './components/ExtendVerticalButton';
 import DrawingButton from './components/DrawingButton';
@@ -18,6 +19,7 @@ DrawingBoard.Control.ExtendVertical = ExtendVerticalButton;
 DrawingBoard.Control.Drawing = DrawingButton;
 DrawingBoard.Control.Eraser = EraserButton;
 DrawingBoard.Control.Reset = ResetButton;
+DrawingBoard.Control.Question = QuestionButton;
     
 
 (function decroateNavigation(){

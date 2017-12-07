@@ -1,9 +1,12 @@
 
-let ExtendVerticalButton = DrawingBoard.Control.extend({
+import BaseDrawingBoardControl from './BaseDrawingBoardControl';
+
+let ExtendVerticalButton = BaseDrawingBoardControl.extend({
 
   name: 'extendVertical',
   
   initialize: function() {
+    this.initializeDefault();
     this.$el.append(`
       <button class="drawing-board-control-extend-vertical-button">
         <i class="fa fa-arrows-v"></i>
@@ -18,7 +21,9 @@ let ExtendVerticalButton = DrawingBoard.Control.extend({
         }, 1000)
         e.preventDefault()
     })
-  }
+  },
+
+  DEFAULT_TIP_TEXT:'手寫範圍加長',
 });
 
 export default ExtendVerticalButton;

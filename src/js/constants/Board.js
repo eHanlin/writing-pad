@@ -24,10 +24,15 @@ export const DEFAULT = {
     },*/
     {   
       Drawing:{
-        color:'rgba(0, 0, 255, 1)'
+        color:'rgba(0, 0, 255, 1)',
+        tipText:'藍筆'
       }   
     },  
-    'Drawing',
+    {
+      Drawing:{
+        tipText:'黑筆'
+      }
+    },
     {   
       Eraser:{
         lineWidth: '30'
@@ -42,7 +47,8 @@ export const DEFAULT = {
     },*/  
     "ExtendVertical",
     "Grid",
-    "Close"
+    "Question",
+    "Close",
   ]
 };
 

@@ -1,9 +1,12 @@
 
-let CloseButton = DrawingBoard.Control.extend({
+import BaseDrawingBoardControl from './BaseDrawingBoardControl';
+
+let CloseButton = BaseDrawingBoardControl.extend({
 
   name: 'close',
   
   initialize: function() {
+    this.initializeDefault();
     this.$el.append(`
       <button class="drawing-board-control-close-button">
         <i class="fa fa-close"></i>
@@ -15,7 +18,9 @@ let CloseButton = DrawingBoard.Control.extend({
         this.board.__extend.hide()
         e.preventDefault()
     });
-  }
+  },
+
+  DEFAULT_TIP_TEXT:'關閉手寫板'
 });
 
 export default CloseButton;

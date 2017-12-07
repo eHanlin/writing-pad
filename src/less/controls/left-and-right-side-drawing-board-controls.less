@@ -8,10 +8,31 @@
     }
   }
 
-  &[data-control-layout='left'], &[data-control-layout='left-right'], &[data-control-layout='right'] {
+  &[data-show-tip] {
     .drawing-board-controls {
+      .drawing-board-control {
+        &:before {
+          display:flex !important;
+        }
+      }
+    }
+  }
+
+  &[data-control-layout='left'], &[data-control-layout='left-right'], &[data-control-layout='right'] {
+    @tip-text-x: 60px;
+    .drawing-board-controls {
+
       &.right {
         right:0px;
+
+        .drawing-board-control {
+          
+          &:before {
+            right:@tip-text-x;
+            left:auto;
+            text-align:right;
+          }
+        }
       }
       //margin-left:-51px;
       display:block;
@@ -19,6 +40,25 @@
       .drawing-board-control {
         display:block;
         text-align:right;
+
+        position:relative;
+
+        &:before {
+          color:@gray;
+          display: none;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+          content:attr(data-tip-text);
+          z-index:10;
+          position:absolute;
+          height:100%;
+          left:@tip-text-x;
+          text-align:left;
+          width:100px;
+          pointer-events:none;
+        } 
+
      
         &.drawing-board-control-drawingmode {
           button {

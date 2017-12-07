@@ -1,7 +1,8 @@
 
 import $ from 'jQuery';
+import BaseDrawingBoardControl from './BaseDrawingBoardControl';
 
-let EraserButton = DrawingBoard.Control.extend({
+let EraserButton = BaseDrawingBoardControl.extend({
 
   name:'eraser',
 
@@ -12,6 +13,7 @@ let EraserButton = DrawingBoard.Control.extend({
   },
 
   initialize: function() {
+    this.initializeDefault();
     this._initElement();
     this.$el.on('click', 'button', this.onClick.bind(this));
     this.board.ev.bind('board:mode', this.onChangedMode.bind(this));
@@ -34,6 +36,8 @@ let EraserButton = DrawingBoard.Control.extend({
   onChangedMode: function() {
     this.getButtonElement().removeClass('active');
   },
+
+  DEFAULT_TIP_TEXT:'橡皮擦',
 
   lineWidth: '15'
 

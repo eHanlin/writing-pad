@@ -1,7 +1,8 @@
 
 import $ from 'jQuery';
+import BaseDrawingBoardControl from './BaseDrawingBoardControl';
 
-let ResetButton = DrawingBoard.Control.extend({
+let ResetButton = BaseDrawingBoardControl.extend({
 
   name:'reset',
 
@@ -14,6 +15,7 @@ let ResetButton = DrawingBoard.Control.extend({
   },
 
   initialize: function(){
+    this.initializeDefault();
     this._initElement();
 
     if (this.opts.confirmationText) this.confirmationText = this.opts.confirmationText;
@@ -29,6 +31,8 @@ let ResetButton = DrawingBoard.Control.extend({
       },350);
     })
   },
+
+  DEFAULT_TIP_TEXT:'全部清除',
 
   confirmationText:'確定要清除手寫板?',
 

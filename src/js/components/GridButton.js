@@ -1,13 +1,15 @@
 
 import {isTouchEvent} from '../utils/eventUtils';
 import $ from 'jQuery';
+import BaseDrawingBoardControl from './BaseDrawingBoardControl';
 
-let GridButton = DrawingBoard.Control.extend({
+let GridButton = BaseDrawingBoardControl.extend({
 
   name: 'grid',
 
   initialize:function() {
     let ELEMENT_CLASS_NAME = 'drawing-board-control-grid-button';
+    this.initializeDefault();
     this.$el.append(`
       <button class="${ELEMENT_CLASS_NAME}">
         <i class="fa fa-th"></i>
@@ -149,7 +151,9 @@ let GridButton = DrawingBoard.Control.extend({
     }
 
     return $dragBgButton;
-  }
+  },
+
+  DEFAULT_TIP_TEXT:'輔助格線',
 });
 
 export default GridButton;
