@@ -8,7 +8,9 @@ let EraserButton = BaseDrawingBoardControl.extend({
 
   _initElement: function() {
     this.$el.append(`
-      <button class="drawing-board-control-drawingmode-${this.name}-button" data-mode="${this.name}"></button>`
+      <button data-mode="${this.name}">
+        <i class="flaticon-remove"></i>
+      </button>`
     );
   },
 

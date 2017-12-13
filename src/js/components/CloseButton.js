@@ -9,7 +9,7 @@ let CloseButton = BaseDrawingBoardControl.extend({
     this.initializeDefault();
     this.$el.append(`
       <button class="drawing-board-control-close-button">
-        <i class="fa fa-close"></i>
+        <i class="flaticon-close"></i>
       </button>
     `);
 

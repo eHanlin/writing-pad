@@ -9,7 +9,7 @@ let ExtendVerticalButton = BaseDrawingBoardControl.extend({
     this.initializeDefault();
     this.$el.append(`
       <button class="drawing-board-control-extend-vertical-button">
-        <i class="fa fa-arrows-v"></i>
+        <i class="flaticon-arrows-1"></i>
       </button>
     `);
 

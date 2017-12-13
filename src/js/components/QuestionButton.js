@@ -11,7 +11,7 @@ let QuestionButton = BaseDrawingBoardControl.extend({
 
     this.$el.append(`
       <button class="drawing-board-control-question-button">
-        <i class="fa fa-question" aria-hidden="true"></i>
+        <i class="flaticon-signs" aria-hidden="true"></i>
       </button>
     `);
 

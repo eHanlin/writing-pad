@@ -9,7 +9,7 @@ let ResetButton = BaseDrawingBoardControl.extend({
   _initElement: function(){
     this.$el.append(`
       <button class="drawing-board-control-reset-button">
-        <i class="fa fa-repeat" aria-hidden="true"></i>
+        <i class="flaticon-delete-2" aria-hidden="true"></i>
       </button>
     `);
   },

@@ -9,7 +9,7 @@ let DrawingButton = BaseDrawingBoardControl.extend({
   _initElement: function(ELEMENT_CLASS_NAME) {
     this.$el.append(`
       <button class="${ELEMENT_CLASS_NAME}" data-mode="pencil">
-        <i class="fa fa-pencil"></i>
+        <i class="flaticon-tool"></i>
       </button>
     `);
     this.getButtonElement().css('color', this.color);
