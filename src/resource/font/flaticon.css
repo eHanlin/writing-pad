@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 09/12/2017 03:56
+  	Creation date: 14/12/2017 11:22
   	*/
 
 @font-face {
@@ -24,38 +24,39 @@
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
   font-family: Flaticon;
-        /*font-size: 20px;*/
+    /*    font-size: 20px;*/
 font-style: normal;
 /*margin-left: 20px;*/
 }
 
-.flaticon-close:before { content: "\f100"; }
-.flaticon-arrows-1:before { content: "\f101"; }
-.flaticon-signs:before { content: "\f102"; }
-.flaticon-remove:before { content: "\f103"; }
-.flaticon-delete-2:before { content: "\f104"; }
-.flaticon-arrows:before { content: "\f105"; }
-.flaticon-tool:before { content: "\f106"; }
-.flaticon-like:before { content: "\f107"; }
-.flaticon-unlike:before { content: "\f108"; }
-.flaticon-dislike:before { content: "\f109"; }
-.flaticon-hand:before { content: "\f10a"; }
-.flaticon-hand9999:before { content: "\f10b"; }
-.flaticon-jewelry6:before { content: "\f10c"; }
-.flaticon-jewel6:before { content: "\f10d"; }
-.flaticon-diamond4:before { content: "\f10e"; }
-.flaticon-wrench19:before { content: "\f10f"; }
-.flaticon-arrow487:before { content: "\f110"; }
-.flaticon-hand77:before { content: "\f111"; }
-.flaticon-audio49:before { content: "\f112"; }
-.flaticon-play87:before { content: "\f113"; }
-.flaticon-minus104:before { content: "\f114"; }
-.flaticon-plus79:before { content: "\f115"; }
-.flaticon-crown33:before { content: "\f116"; }
-.flaticon-delete-1:before { content: "\f117"; }
-.flaticon-delete:before { content: "\f118"; }
-.flaticon-like7:before { content: "\f119"; }
-.flaticon-information15:before { content: "\f11a"; }
-.flaticon-shapes:before { content: "\f11b"; }
-.flaticon-sound14:before { content: "\f11c"; }
-.flaticon-right-arrow26:before { content: "\f11d"; }
+.flaticon-arrows-2:before { content: "\f100"; }
+.flaticon-close:before { content: "\f101"; }
+.flaticon-arrows-1:before { content: "\f102"; }
+.flaticon-signs:before { content: "\f103"; }
+.flaticon-remove:before { content: "\f104"; }
+.flaticon-delete-2:before { content: "\f105"; }
+.flaticon-arrows:before { content: "\f106"; }
+.flaticon-tool:before { content: "\f107"; }
+.flaticon-like:before { content: "\f108"; }
+.flaticon-unlike:before { content: "\f109"; }
+.flaticon-dislike:before { content: "\f10a"; }
+.flaticon-hand:before { content: "\f10b"; }
+.flaticon-hand9999:before { content: "\f10c"; }
+.flaticon-jewelry6:before { content: "\f10d"; }
+.flaticon-jewel6:before { content: "\f10e"; }
+.flaticon-diamond4:before { content: "\f10f"; }
+.flaticon-wrench19:before { content: "\f110"; }
+.flaticon-arrow487:before { content: "\f111"; }
+.flaticon-hand77:before { content: "\f112"; }
+.flaticon-audio49:before { content: "\f113"; }
+.flaticon-play87:before { content: "\f114"; }
+.flaticon-minus104:before { content: "\f115"; }
+.flaticon-plus79:before { content: "\f116"; }
+.flaticon-crown33:before { content: "\f117"; }
+.flaticon-delete-1:before { content: "\f118"; }
+.flaticon-delete:before { content: "\f119"; }
+.flaticon-like7:before { content: "\f11a"; }
+.flaticon-information15:before { content: "\f11b"; }
+.flaticon-shapes:before { content: "\f11c"; }
+.flaticon-sound14:before { content: "\f11d"; }
+.flaticon-right-arrow26:before { content: "\f11e"; }

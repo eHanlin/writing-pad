@@ -25,7 +25,6 @@ class WritingPad extends SimpleObserver {
   constructor(container, opts = {}) {
     super();
     let id = `writingPad${random.string()}`;
-    //this.histories = {};
     this.stateHistory = new WritingPadHistory(this);
     this._initOpts(opts);
     this._initDOM(container, id, this.opts);
@@ -34,7 +33,7 @@ class WritingPad extends SimpleObserver {
     this._initLayoutControls(this.opts);
     this._initEvents();
     this._bindDelayResize = this._delayResize.bind(this);
-    this.historyManager = new HistoryManager(this);
+    this.historyManager = new HistoryManager(this, {maxLength:this.opts.historyMaxLength || 5});
   }
 
   _initEvents() {
@@ -162,9 +161,7 @@ class WritingPad extends SimpleObserver {
   }
 
   saveByKey(key) {
-    //this.histories[key] = this.board.getImg()
     try {
-      //this.histories[key] = canvasUtils.copyCanvas(this.board.canvas);
       this.historyManager.saveByKey(key);
     } catch (e) {
       console.warn(e);
@@ -173,13 +170,15 @@ class WritingPad extends SimpleObserver {
     return true;
   }
 
+  /*switchKey(key){
+    this.historyManager.switchKey(key);
+  }*/
+
   containKey(key) {
-    //return !!this.histories[key];
     return this.historyManager.containKey(key);
   }
 
   deleteKey(key) {
-    //delete this.histories[key];
     this.historyManager.deleteKey(key);
   }
 
@@ -208,15 +207,12 @@ class WritingPad extends SimpleObserver {
 
   restoreByKey( key, {clearEmpty = true, useHistoryHeight = false} = {}) {
     if (this.containKey(key)) {
-      //let historyCanvas = this.histories[key];
 
       this._resetBoard();
 
       if (useHistoryHeight) this.resetHeight(historyCanvas.height);
 
-      //canvasUtils.drawFrom(this.board.canvas, historyCanvas);
       this.historyManager.restoreByKey(key);
-      //this.board.restoreHistory(this.histories[key]);
       return true;
     } else if (clearEmpty) {
       return this._resetBoard();

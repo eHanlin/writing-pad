@@ -45,6 +45,8 @@ export const DEFAULT = {
         forward: false
       }   
     },*/  
+    //"Redo",
+    "Undo",
     "ExtendVertical",
     "Grid",
     "Question",

@@ -11,6 +11,8 @@ import ExtendVerticalButton from './components/ExtendVerticalButton';
 import DrawingButton from './components/DrawingButton';
 import EraserButton from './components/EraserButton';
 import ResetButton from './components/ResetButton';
+import RedoButton from './components/RedoButton';
+import UndoButton from './components/UndoButton';
 import buildWritingPad from './builders/writingPadBuilder';
 
 DrawingBoard.Control.Close = CloseButton;
@@ -20,6 +22,8 @@ DrawingBoard.Control.Drawing = DrawingButton;
 DrawingBoard.Control.Eraser = EraserButton;
 DrawingBoard.Control.Reset = ResetButton;
 DrawingBoard.Control.Question = QuestionButton;
+DrawingBoard.Control.Undo = UndoButton;
+DrawingBoard.Control.Redo = RedoButton;
     
 
 (function decroateNavigation(){

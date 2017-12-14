@@ -1,14 +1,16 @@
 
 import * as canvasUtils from './utils/canvasUtils';
 import {START_DRAWING, STOP_DRAWING, DRAWING} from './constants/Event';
+import {UPDATE_HISTORY, SWITCH_HISTORY_KEY} from './constants/Event';
 
 class HistoryManager {
 
-  constructor(pad) {
+  constructor(pad, opts = {}) {
     this.pad = pad;
     this.histories = {};
     this._initEvent();
     this._currentKey = `default_${+new Date()}`;
+    this.opts = opts;
   }
 
   _initEvent() {
@@ -26,12 +28,12 @@ class HistoryManager {
 
   _createHistory() {
     let history =  new SimpleUndo({
-      maxLength:5,
+      maxLength:this.opts.maxLength,
       provider:(done)=> {
         done(canvasUtils.copyCanvas(this._getPadCanvas()));
       },
       onUpdate:()=> {
-      
+        this.pad.trigger(UPDATE_HISTORY);
       }
     });
     history.initialize(canvasUtils.copyCanvas(this._getPadCanvas()));
@@ -47,19 +49,24 @@ class HistoryManager {
     canvasUtils.drawFrom(this._getPadCanvas(), canvas); 
   }
 
-  saveByKey(key) {
-    let history = this._getHistory(key);
-    history.save();
+  switchKey(key) {
     this._currentKey = key;
+    this.pad.trigger(SWITCH_HISTORY_KEY);
+  }
+
+  saveByKey(key) {
+    let exist = this.containKey(key);
+    let history = this._getHistory(key);
+    if (exist) history.stack[history.position] = canvasUtils.copyCanvas(this._getPadCanvas());
+    this.switchKey(key);
   }
 
   restoreByKey(key) {
     let history = this._getHistory(key);
     let historyCanvas = history.stack[history.position];
-    console.log(history)
     $(document.body).append(historyCanvas);
     this._drawPadFrom(historyCanvas);
-    this._currentKey = key;
+    this.switchKey(key);
   }
 
   containKey(key) {
@@ -72,9 +79,7 @@ class HistoryManager {
 
   undo() {
     let history = this._getHistory(this._currentKey);
-    console.log(history.stack);
     history.undo((canvas)=> {
-      console.log(canvas);
       this._drawPadFrom(canvas)
     });
   }

@@ -6,4 +6,6 @@ export const STOP_DRAWING = 'stopDrawing';
 export const BOARD_STOP_DRAWING = 'board:stopDrawing';
 export const DRAWING = 'drawing';
 export const BOARD_DRAWING = 'board:drawing';
+export const UPDATE_HISTORY = 'updateHistory';
+export const SWITCH_HISTORY_KEY = 'switchHistoryKey';
 
