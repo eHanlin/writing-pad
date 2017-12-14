@@ -37,7 +37,7 @@ This is some optional settings.
 * **opts.isDrawingOnEvent:** Use event to draw canvas, if value is true.
 * **opts.gridTipText:** Set the tip text of grid's background.
 * **opts.hintAreaText:** Set hint that is able to write area.
-* **opts.controls:**  The control panel's setup support `Drawing` 、 `Eraser` 、 `Grid` 、 `ExtendVertical` 、 `Close` 、 `Reset` and so on.
+* **opts.controls:**  The control panel's setup support `Drawing` 、 `Eraser` 、 `Grid` 、 `ExtendVertical` 、 `Close` 、 `Reset` 、 `Undo` 、 `Redo` and so on.
 > Set `color` or `lineWidth` if you use `Drawing`. (ie `{Drawing:{color:'rgba(0, 0, 255, 1)', lineWidth:'5'}}`).
 > The `Reset` feature is able to set `disabledConfirmation` and `confirmationText`. (ie `{Reset:{confirmationText:'Do you want to clear board?'}}`)
 
