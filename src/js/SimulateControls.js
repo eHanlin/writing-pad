@@ -71,11 +71,17 @@ class SimulateControls {
     $el.attr('class', $target.attr('class'));
   }
 
+  _syncAttr($el, $target) {
+    $el.prop('disabled', $target.prop('disabled'));
+  }
+
   _bindMutationObserver($el, $target) {
     let observer = new MutationObserver((mutations)=> {
       mutations.forEach((mutation)=> {
         if (mutation.attributeName === "class") {
           this._syncStyle($el, $target);
+        } else if (mutation.attributeName === 'disabled'){
+          this._syncAttr($el, $target);
         }
       });
     });
