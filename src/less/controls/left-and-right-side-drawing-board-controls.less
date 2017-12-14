@@ -43,6 +43,10 @@
 
         position:relative;
 
+        &.drawing-pen + :not(.drawing-pen), &.drawing-board-control-extendVertical {
+          margin-top:10px;
+        }
+
         &:before {
           color:@gray;
           display: none;

@@ -12,6 +12,7 @@ let DrawingButton = BaseDrawingBoardControl.extend({
         <i class="flaticon-tool"></i>
       </button>
     `);
+    this.$el.addClass('drawing-pen');
     this.getButtonElement().css('color', this.color);
   },
 
