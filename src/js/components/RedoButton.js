@@ -33,9 +33,13 @@ let RedoButton = BaseDrawingBoardControl.extend({
   },
 
   resetRedoButton: function(){
-    let canRedo = this.board.__extend.historyManager.canRedo();
-    let redoButton = this.$el.find('button');
-    if (!canRedo) redoButton.prop('disabled', true); else redoButton.prop('disabled', false);
+    try {
+      let canRedo = this.board.__extend.historyManager.canRedo();
+      let redoButton = this.$el.find('button');
+      if (!canRedo) redoButton.prop('disabled', true); else redoButton.prop('disabled', false);
+    } catch (e) {
+      console.warn(e);
+    }
   },
 
   DEFAULT_TIP_TEXT:'回下一步'

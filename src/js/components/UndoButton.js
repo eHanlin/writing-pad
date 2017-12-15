@@ -33,9 +33,13 @@ let UndoButton = BaseDrawingBoardControl.extend({
   },
 
   resetUndoButton: function(){
-    let canUndo = this.board.__extend.historyManager.canUndo();
-    let undoButton = this.$el.find('button');
-    if (!canUndo) undoButton.prop('disabled', true); else undoButton.prop('disabled', false);
+    try {
+      let canUndo = this.board.__extend.historyManager.canUndo();
+      let undoButton = this.$el.find('button');
+      if (!canUndo) undoButton.prop('disabled', true); else undoButton.prop('disabled', false);
+    } catch (e) {
+      console.warn(e);
+    }
   },
 
   DEFAULT_TIP_TEXT:'回上一步'
