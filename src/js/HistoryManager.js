@@ -64,7 +64,6 @@ class HistoryManager {
   restoreByKey(key) {
     let history = this._getHistory(key);
     let historyCanvas = history.stack[history.position];
-    $(document.body).append(historyCanvas);
     this._drawPadFrom(historyCanvas);
     this.switchKey(key);
   }
