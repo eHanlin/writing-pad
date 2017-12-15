@@ -22,21 +22,25 @@ class HistoryManager {
 
   _getHistory(key) {
     let history = this.histories[key];
-    if (!history) history = this.histories[key] = this._createHistory();
+    if (!history) {
+      history = this.histories[key] = this._createHistory();
+    }
     return history;
   }
 
   _createHistory() {
+    let enabled = false;
     let history =  new SimpleUndo({
       maxLength:this.opts.maxLength,
       provider:(done)=> {
         done(canvasUtils.copyCanvas(this._getPadCanvas()));
       },
       onUpdate:()=> {
-        this.pad.trigger(UPDATE_HISTORY);
+        if (enabled) this.pad.trigger(UPDATE_HISTORY);
       }
     });
     history.initialize(canvasUtils.copyCanvas(this._getPadCanvas()));
+    enabled = true;
     return history;
   }
 
@@ -50,8 +54,10 @@ class HistoryManager {
   }
 
   switchKey(key) {
-    this._currentKey = key;
-    this.pad.trigger(SWITCH_HISTORY_KEY);
+    if (key !== this._currentKey) {
+      this._currentKey = key;
+      this.pad.trigger(SWITCH_HISTORY_KEY);
+    }
   }
 
   saveByKey(key) {

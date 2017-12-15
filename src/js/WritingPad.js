@@ -215,6 +215,7 @@ class WritingPad extends SimpleObserver {
       this.historyManager.restoreByKey(key);
       return true;
     } else if (clearEmpty) {
+      this.historyManager.switchKey(key)
       return this._resetBoard();
     }
     return false;
