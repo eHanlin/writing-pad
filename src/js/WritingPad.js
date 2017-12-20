@@ -267,7 +267,7 @@ class WritingPad extends SimpleObserver {
 
     if (slide) {
       $(slideEl).animate({
-        scrollTop:top + height / 2
+        scrollTop:top + height * 0.9
       }, slideDuration);
     }
   }
