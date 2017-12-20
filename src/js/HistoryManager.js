@@ -74,6 +74,12 @@ class HistoryManager {
     this.switchKey(key);
   }
 
+  getByKey(key) {
+    let history = this._getHistory(key);
+    let historyCanvas = history.stack[history.position];
+    return historyCanvas;
+  }
+
   containKey(key) {
     return !!this.histories[key];
   }

@@ -210,7 +210,7 @@ class WritingPad extends SimpleObserver {
 
       this._resetBoard();
 
-      if (useHistoryHeight) this.resetHeight(historyCanvas.height);
+      if (useHistoryHeight) this.resetHeight(this.historyManager.getByKey(key));
 
       this.historyManager.restoreByKey(key);
       return true;
