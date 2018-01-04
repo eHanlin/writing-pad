@@ -156,7 +156,8 @@ class WritingPad extends SimpleObserver {
   toBlob(type, quality) {
     return new Promise((resolve, reject)=>{
       let canvas = this.board.canvas;
-      canvas.toBlob(resolve, type, quality);
+      let currentCanvas = canvasUtils.copyCanvas(canvas);
+      currentCanvas.toBlob(resolve, type, quality);
     });
   }
 
