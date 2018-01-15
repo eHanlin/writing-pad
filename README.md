@@ -154,5 +154,6 @@ Close hint that is able to write area.
 * startDrawing
 * stopDrawing
 * drawing
-
+* openColorPicker
+* closeColorPicker
 
