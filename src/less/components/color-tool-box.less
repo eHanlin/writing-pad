@@ -1,0 +1,30 @@
+@import "../var/makeup.less";
+
+.color-picker(@sideDistance) {
+  padding: 10px;
+  position: absolute;
+  width: 205px;
+  height: 80px;
+  top: 0px;
+  left: @sideDistance;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  text-align:left;
+
+  .color-item {
+    font-size:22px;
+    cursor:pointer;
+    .user-select-none;
+    display:inline-block;
+    padding:4px;
+    width:26px;
+    text-align:center;
+    &:hover {
+      background: #80808021;
+      border-radius: 10px;
+    }
+  }
+
+}
+

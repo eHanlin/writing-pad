@@ -22,6 +22,7 @@ export const DEFAULT = {
         forward: false
       }
     },*/
+    'Color',
     {   
       Drawing:{
         color:'rgba(0, 0, 255, 1)',

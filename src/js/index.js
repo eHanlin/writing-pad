@@ -13,6 +13,7 @@ import EraserButton from './components/EraserButton';
 import ResetButton from './components/ResetButton';
 import RedoButton from './components/RedoButton';
 import UndoButton from './components/UndoButton';
+import ColorButton from './components/ColorButton';
 import buildWritingPad from './builders/writingPadBuilder';
 
 DrawingBoard.Control.Close = CloseButton;
@@ -24,6 +25,7 @@ DrawingBoard.Control.Reset = ResetButton;
 DrawingBoard.Control.Question = QuestionButton;
 DrawingBoard.Control.Undo = UndoButton;
 DrawingBoard.Control.Redo = RedoButton;
+DrawingBoard.Control.Color = ColorButton;
     
 
 (function decroateNavigation(){

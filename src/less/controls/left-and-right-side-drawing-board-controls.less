@@ -1,4 +1,5 @@
 @import "../var/layout.less";
+@import "../components/color-tool-box.less";
 
 .add-left-and-right-side-drawing-board-controls() { 
    
@@ -32,6 +33,11 @@
             left:auto;
             text-align:right;
           }
+
+          .color-tool-box {
+            right:@tip-text-x;
+            left:auto;
+          }
         }
       }
       //margin-left:-51px;
@@ -42,6 +48,13 @@
         text-align:right;
 
         position:relative;
+
+        .color-tool-box {
+          .color-picker(@tip-text-x);
+        }
+        button.hidden-color-picker + .color-tool-box { 
+          display:none;
+        }
 
         &.drawing-pen + :not(.drawing-pen), &.drawing-board-control-extendVertical {
           margin-top:10px;

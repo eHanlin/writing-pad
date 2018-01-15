@@ -8,4 +8,5 @@ export const DRAWING = 'drawing';
 export const BOARD_DRAWING = 'board:drawing';
 export const UPDATE_HISTORY = 'updateHistory';
 export const SWITCH_HISTORY_KEY = 'switchHistoryKey';
+export const CHANGE_PEN_COLOR = 'changePenColor';
 

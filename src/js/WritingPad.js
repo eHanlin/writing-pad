@@ -83,7 +83,7 @@ class WritingPad extends SimpleObserver {
   }
 
   _setFirstControlToDefault() {
-    this.$el.find(".drawing-board-control:first button").click();
+    this.$el.find(".drawing-board-control.drawing-pen:first button").click();
   }
 
   _getInnerContentElement() {
