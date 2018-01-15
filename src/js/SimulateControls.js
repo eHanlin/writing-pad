@@ -69,6 +69,7 @@ class SimulateControls {
 
   _syncStyle($el, $target) {
     $el.attr('class', $target.attr('class'));
+    $el.attr('style', $target.attr('style'));
   }
 
   _syncAttr($el, $target) {
@@ -78,11 +79,11 @@ class SimulateControls {
   _bindMutationObserver($el, $target) {
     let observer = new MutationObserver((mutations)=> {
       mutations.forEach((mutation)=> {
-        if (mutation.attributeName === "class") {
+        if (["class", "style"].indexOf(mutation.attributeName) > -1) {
           this._syncStyle($el, $target);
         } else if (mutation.attributeName === 'disabled'){
           this._syncAttr($el, $target);
-        }
+        } 
       });
     });
 
@@ -93,7 +94,9 @@ class SimulateControls {
   }
 
   _linkElement($el, $target) {
-    let clickTarget = ()=>{
+    let clickTarget = (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
       $target.click();
     };
     $el.on('click', clickTarget);
