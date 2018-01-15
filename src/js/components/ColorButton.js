@@ -1,7 +1,7 @@
 
 import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
-import {CHANGE_PEN_COLOR} from '../constants/Event';
+import {CHANGE_PEN_COLOR, OPEN_COLOR_PICKER, CLOSE_COLOR_PICKER} from '../constants/Event';
 
 let ColorButton = BaseDrawingBoardControl.extend({
 
@@ -55,6 +55,7 @@ let ColorButton = BaseDrawingBoardControl.extend({
 
   onCloseColorPicker:function() {
     this._getButton().addClass(this.HIDDEN_COLOR_PICKER);
+    this.board.__extend.trigger(CLOSE_COLOR_PICKER);
   },
 
   onChangedMode: function(mode) {
@@ -86,10 +87,15 @@ let ColorButton = BaseDrawingBoardControl.extend({
 
   toggleHiddenColorPicker: function() {
     this._getButton().toggleClass(this.HIDDEN_COLOR_PICKER);
+
+    if (this._getButton().hasClass(this.HIDDEN_COLOR_PICKER)) {
+      this.board.__extend.trigger(CLOSE_COLOR_PICKER);
+    } else {
+      this.board.__extend.trigger(OPEN_COLOR_PICKER);
+    }
   },
 
   onClick: function(e) {
-    console.log(e);
     e.preventDefault();
     e.stopPropagation();
     this.toggleHiddenColorPicker();
