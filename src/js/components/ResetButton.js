@@ -1,6 +1,7 @@
 
 import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
+import {CLEAER} from '../constants/Event';
 
 let ResetButton = BaseDrawingBoardControl.extend({
 
@@ -27,6 +28,7 @@ let ResetButton = BaseDrawingBoardControl.extend({
         if (this.disabledConfirmation || confirm(this.confirmationText)) {
           this.board.__extend.resize()
           this.board.clear()
+          this.board.__extend.trigger(CLEAER);
         }
       },350);
     })
