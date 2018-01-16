@@ -49,7 +49,7 @@ class WritingPad extends SimpleObserver {
 
   _initBoardOpts(opts) {
     let boardOpts = $.extend(true, {}, BORAD_DEFAULT);
-    if (opts.controls) boardOpts.controls = controls;
+    if (opts.controls) boardOpts.controls = opts.controls;
     if (opts.gridTipText) boardOpts.gridTipText = gridTipText;
     if (opts.useMovingGesture) boardOpts.useMovingGesture = opts.useMovingGesture;
     if (opts.isDrawingOnEvent) boardOpts.isDrawingOnEvent = opts.isDrawingOnEvent;
