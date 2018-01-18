@@ -227,6 +227,11 @@ class WritingPad extends SimpleObserver {
     this.board.clearWebStorage()
   }
 
+  getControl(id) {
+    let controls = this.board.controls.filter((control)=> control.id == id);
+    return controls.length? controls[0] : null;
+  }
+
   _onClose() {
     this.trigger(CLOSE)
   }
