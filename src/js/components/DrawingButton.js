@@ -78,7 +78,7 @@ let DrawingButton = BaseDrawingBoardControl.extend({
     this.getButtonElement().removeClass('active');
   },
 
-  DEFAULT_TIP_TEXT:'筆',
+  DEFAULT_TIP_TEXT:'色筆',
 
   color:'rgba(0, 0, 0, 1)',
 

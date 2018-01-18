@@ -25,13 +25,11 @@ export const DEFAULT = {
     'Color',
     {   
       Drawing:{
-        color:'rgba(0, 0, 255, 1)',
-        tipText:'藍筆'
+        color:'rgba(0, 0, 255, 1)'
       }   
     },  
     {
       Drawing:{
-        tipText:'黑筆'
       }
     },
     {   
