@@ -7,6 +7,8 @@ let ColorButton = BaseDrawingBoardControl.extend({
 
   name: 'color',
 
+  DEFAULT_TIP_TEXT:'更換顏色',
+
   _initElement: function() {
     let colors = [
       'rgb(0, 0, 0)',
