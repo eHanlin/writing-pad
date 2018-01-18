@@ -147,6 +147,22 @@ Open hint that is able to write area.
 
 Close hint that is able to write area.
 
+##### getControl(id:string)
+
+Get a control object by id. Be able to set id in `opts.controls` like this：
+
+```
+writingPad.build(container, {
+  controls:[
+    {
+      Drawing: {
+        id:'1'
+      }
+    }
+  ]
+})
+```
+
 
 ### Events
 
@@ -157,4 +173,5 @@ Close hint that is able to write area.
 * openColorPicker
 * closeColorPicker
 * clear
+* changeDrawingColor
 

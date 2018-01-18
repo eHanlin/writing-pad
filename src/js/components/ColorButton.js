@@ -1,7 +1,7 @@
 
 import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
-import {CHANGE_PEN_COLOR, OPEN_COLOR_PICKER, CLOSE_COLOR_PICKER} from '../constants/Event';
+import {CHANGE_PEN_COLOR, OPEN_COLOR_PICKER, CLOSE_COLOR_PICKER, RESET_COLOR_PICKER} from '../constants/Event';
 
 let ColorButton = BaseDrawingBoardControl.extend({
 
@@ -51,11 +51,16 @@ let ColorButton = BaseDrawingBoardControl.extend({
     this.board.$el.on('click', `.${this.COLOR_TOOL_BOX_CLASS_NAME} .${this.COLOR_ITEM_CLASS_NAME}`, this.onChangeColor.bind(this));
     this.board.$el.find('canvas').on('click touchstart', this.onCloseColorPicker.bind(this));
     this.board.ev.bind('board:mode', this.onChangedMode.bind(this));
+    this.board.ev.bind(RESET_COLOR_PICKER, this.onReset.bind(this))
   },
 
   onCloseColorPicker:function() {
     this._getButton().addClass(this.HIDDEN_COLOR_PICKER);
     this.board.__extend.trigger(CLOSE_COLOR_PICKER);
+  },
+
+  onReset: function(evt) {
+    this.switchColor(evt.color);
   },
 
   onChangedMode: function(mode) {

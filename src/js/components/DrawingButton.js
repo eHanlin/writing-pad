@@ -1,7 +1,7 @@
 
 import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
-import {CHANGE_PEN_COLOR} from '../constants/Event';
+import {CHANGE_PEN_COLOR, CHANGE_DRAWING_COLOR, RESET_COLOR_PICKER} from '../constants/Event';
 
 let DrawingButton = BaseDrawingBoardControl.extend({
 
@@ -19,6 +19,21 @@ let DrawingButton = BaseDrawingBoardControl.extend({
 
   switchButtonColor: function(color) {
     this.getButtonElement().css('color', this.color);
+  },
+
+  switchColor: function(color) {
+    let active = this._isActive();
+    this.color = color;
+    this.switchButtonColor(color);
+    if (active) {
+      this.board.setColor(color);
+      this.board.ev.trigger(RESET_COLOR_PICKER, {color:color})
+    }
+    this.board.__extend.trigger(CHANGE_DRAWING_COLOR, {color:color, id:this.id, type:'control', active: active});
+  },
+
+  _isActive: function() {
+    return this.getButtonElement().hasClass('active');
   },
 
   _initOpts: function(opts) {
@@ -39,11 +54,9 @@ let DrawingButton = BaseDrawingBoardControl.extend({
   },
 
   onChangeColor: function(evt) {
-    if (this.getButtonElement().hasClass('active')) {
+    if (this._isActive()) {
       let color = evt.color;
-      this.color = color;
-      this.board.setColor(color);
-      this.switchButtonColor(color);
+      this.switchColor(color);
     }
   },
 
