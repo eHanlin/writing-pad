@@ -174,4 +174,5 @@ writingPad.build(container, {
 * closeColorPicker
 * clear
 * changeDrawingColor
+* changeDrawingSize
 

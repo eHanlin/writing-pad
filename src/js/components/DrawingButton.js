@@ -1,7 +1,7 @@
 
 import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
-import {CHANGE_PEN_COLOR, CHANGE_DRAWING_COLOR, RESET_COLOR_PICKER} from '../constants/Event';
+import {CHANGE_PEN_COLOR, CHANGE_PEN_SIZE, CHANGE_DRAWING_COLOR, RESET_COLOR_PICKER, CHANGE_DRAWING_SIZE} from '../constants/Event';
 
 let DrawingButton = BaseDrawingBoardControl.extend({
 
@@ -21,15 +21,30 @@ let DrawingButton = BaseDrawingBoardControl.extend({
     this.getButtonElement().css('color', this.color);
   },
 
+  _resetColorPicker:function() {
+    this.board.ev.trigger(RESET_COLOR_PICKER, {color:this.color, lineWidth:this.lineWidth});
+  },
+
+  switchSize: function(size) {
+    let active = this._isActive();
+    this.lineWidth = size;
+    if (active) {
+      this.board.ctx.lineWidth = size;
+      this._resetColorPicker();
+    }
+    this.board.__extend.trigger(CHANGE_DRAWING_SIZE, {color:this.color, id:this.id, type:'control', active: active, lineWidth:this.lineWidth});
+
+  },
+
   switchColor: function(color) {
     let active = this._isActive();
     this.color = color;
     this.switchButtonColor(color);
     if (active) {
       this.board.setColor(color);
-      this.board.ev.trigger(RESET_COLOR_PICKER, {color:color})
+      this._resetColorPicker();
     }
-    this.board.__extend.trigger(CHANGE_DRAWING_COLOR, {color:color, id:this.id, type:'control', active: active});
+    this.board.__extend.trigger(CHANGE_DRAWING_COLOR, {color:color, id:this.id, type:'control', active: active, lineWidth:this.lineWidth});
   },
 
   _isActive: function() {
@@ -51,6 +66,13 @@ let DrawingButton = BaseDrawingBoardControl.extend({
     this.$el.on('click', `.${ELEMENT_CLASS_NAME}`, this.onClick.bind(this));
     this.board.ev.bind('board:mode', this.onChangedMode.bind(this));
     this.board.ev.bind(CHANGE_PEN_COLOR, this.onChangeColor.bind(this));
+    this.board.ev.bind(CHANGE_PEN_SIZE, this.onChangeSize.bind(this));
+  },
+
+  onChangeSize: function(evt){
+    if (this._isActive()) {
+      this.switchSize(evt.size)
+    }
   },
 
   onChangeColor: function(evt) {
@@ -72,6 +94,7 @@ let DrawingButton = BaseDrawingBoardControl.extend({
     this.board.setColor(this.color);
     this.board.setMode(mode);
     $target.addClass('active');
+    this._resetColorPicker();
   },
 
   onChangedMode: function() {

@@ -26,11 +26,16 @@ class SimulateControls {
   }
 
   simulate() {
+    let DATA_SYNC = 'data-sync';
     let $buttons = this.$controls.find('button');
     let $selfButtons = this.$el.find('button');
     this._unbindAll();
     $buttons.each((index, el)=>{
-      this._linkElement($selfButtons.eq(index), $(el));
+      let $currentElement = $selfButtons.eq(index);
+      this._linkElement($currentElement, $(el));
+      if ($currentElement.find(`[${DATA_SYNC}]`).length) {
+        this._linkElement($currentElement.find(`[${DATA_SYNC}]`), $(el).find(`[${DATA_SYNC}]`));
+      }
     });
     let requestId = null;
     let refresh = ()=> {
