@@ -12,13 +12,10 @@ let ColorButton = BaseDrawingBoardControl.extend({
   _initElement: function() {
     let colors = this.opts.colors || [
       'rgb(0, 0, 0)',
-      'rgb(247, 65, 45) ',
       'rgb(71, 176, 75) ',
       'rgb(17, 148, 246)',
       'rgb(255, 194, 0)',
       'rgb(157, 27, 178)',
-      'rgb(236, 21, 97) ',
-      'rgb(122, 85, 71) ',
       'rgb(0, 0, 255)'
     ];
     this.$el.append(`
