@@ -7,7 +7,7 @@ let ColorButton = BaseDrawingBoardControl.extend({
 
   name: 'color',
 
-  DEFAULT_TIP_TEXT:'更換顏色和size',
+  DEFAULT_TIP_TEXT:'更換顏色粗細',
 
   _initElement: function() {
     let colors = this.opts.colors || [
