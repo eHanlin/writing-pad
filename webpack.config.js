@@ -17,8 +17,7 @@ module.exports = {
     filename: 'bundle.js'
   },  
   externals: {
-    jquery:'jQuery',
-    jQuery:'jQuery',
+    jquery:'jquery',
     drawingboard:'drawingboard.js',
     'font-awesome':'font-awesome'
   },
@@ -31,7 +30,7 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
         $: 'jquery',
-        jQuery: 'jquery',
+        jquery: 'jquery',
         'window.jQuery': 'jquery',
         'root.jQuery': 'jquery'
     }),

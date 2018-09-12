@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from 'jQuery';
 import * as random from '../utils/random';
 import WritingPad from '../WritingPad';
 

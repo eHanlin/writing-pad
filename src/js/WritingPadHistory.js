@@ -1,4 +1,7 @@
 
+import $ from 'jQuery';
+
+
 class WritingPadHistory {
 
   COPY_CTX_TYPES = ['string', 'boolean', 'number']

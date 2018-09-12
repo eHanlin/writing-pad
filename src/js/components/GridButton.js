@@ -1,6 +1,6 @@
 
 import {isTouchEvent} from '../utils/eventUtils';
-import $ from 'jquery';
+import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
 
 let GridButton = BaseDrawingBoardControl.extend({

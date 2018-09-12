@@ -1,5 +1,5 @@
 
-import $ from 'jquery';
+import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
 import {CLEAER} from '../constants/Event';
 

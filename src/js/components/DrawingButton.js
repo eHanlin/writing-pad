@@ -1,5 +1,5 @@
 
-import $ from 'jquery';
+import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
 import {CHANGE_PEN_COLOR, CHANGE_PEN_SIZE, CHANGE_DRAWING_COLOR, RESET_COLOR_PICKER, CHANGE_DRAWING_SIZE} from '../constants/Event';
 

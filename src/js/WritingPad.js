@@ -1,6 +1,6 @@
 
 import es6Promise from 'promise-polyfill';
-import $ from 'jquery';
+import $ from 'jQuery';
 import * as random from './utils/random';
 import * as canvasUtils from './utils/canvasUtils';
 import SimpleObserver from './utils/SimpleObserver';
