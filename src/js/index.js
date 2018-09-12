@@ -1,5 +1,5 @@
 
-import $ from 'jQuery';
+import $ from 'jquery';
 import css from 'drawingboardCss';
 import less from '../less/main.less';
 //import fontAwesome from 'font-awesome/css/font-awesome.css';
