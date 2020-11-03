@@ -1,5 +1,6 @@
 
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
+import $ from 'jQuery';
 
 let ExtendVerticalButton = BaseDrawingBoardControl.extend({
 
