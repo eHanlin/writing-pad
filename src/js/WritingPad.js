@@ -223,6 +223,20 @@ class WritingPad extends SimpleObserver {
     return false;
   }
 
+  restoreByKeyWithHeightAdjustment(key, {heightAdjustmentFn = () => {}} = {}) {
+    this._resetBoard();
+
+    const newHeight = heightAdjustmentFn();
+    if (newHeight) this.resetHeight(newHeight);
+
+    if (this.containKey(key)) {
+      this.historyManager.restoreByKey(key);
+      return;
+    }
+
+    this.historyManager.switchKey(key)
+  }
+
   clearStorage() {
     this.board.clearWebStorage()
   }
