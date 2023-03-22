@@ -7,7 +7,7 @@ import SimpleObserver from './utils/SimpleObserver';
 import {CLOSE, START_DRAWING, BOARD_START_DRAWING, BOARD_STOP_DRAWING, STOP_DRAWING, DRAWING, BOARD_DRAWING} from './constants/Event';
 import {DATA_HINT_AREA, DATA_WRITING_AREA, DATA_CONTROL_LAYOUT} from './constants/WriteAttribute';
 import {LAYOUT_POSITIONS, LEFT_RIGHT} from './constants/ControlsLayout';
-import {DEFAULT as BORAD_DEFAULT} from './constants/Board';
+import {DEFAULT as BOARD_DEFAULT} from './constants/Board';
 import {DEFAULT} from './constants/WritingPad';
 import WritingPadHistory from './WritingPadHistory';
 import HistoryManager from './HistoryManager';
@@ -48,7 +48,7 @@ class WritingPad extends SimpleObserver {
   }
 
   _initBoardOpts(opts) {
-    let boardOpts = $.extend(true, {}, BORAD_DEFAULT);
+    let boardOpts = $.extend(true, {}, BOARD_DEFAULT);
     if (opts.controls) boardOpts.controls = opts.controls;
     if (opts.gridTipText) boardOpts.gridTipText = gridTipText;
     if (opts.useMovingGesture) boardOpts.useMovingGesture = opts.useMovingGesture;
