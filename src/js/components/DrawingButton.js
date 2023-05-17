@@ -90,6 +90,14 @@ let DrawingButton = BaseDrawingBoardControl.extend({
     e.preventDefault();
     let $target = $(e.currentTarget);
     let mode = $target.attr('data-mode');
+
+    if ($target.hasClass('active')) {
+      $target.removeClass('active');
+      this.board.canvas.classList.add('move-mode');
+      return;
+    }
+
+    this.board.canvas.classList.remove('move-mode');
     this.board.ctx.lineWidth = this.lineWidth;
     this.board.setColor(this.color);
     this.board.setMode(mode);
