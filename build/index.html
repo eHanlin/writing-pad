@@ -28,36 +28,41 @@
     var container = document.querySelector("#container");
     //var board = writingPad.build(container, {canvasWidth:1000, useMovingGesture:true, controlsLayout:'left-right', isDrawingOnEvent:true});
     var board = writingPad.build(container, {
-      canvasWidth:1000,
-      useMovingGesture:true,
-      controlsLayout:'left-right',
-      controls:[
+      canvasWidth: 1000,
+      useMovingGesture: true,
+      controlsLayout: 'left-right',
+      controls: [
         'Color',
-        {   
-          Drawing:{
-            id:'1',
-            color:'rgba(0, 0, 255, 1)',
-          }   
-        },  
-        { 
-          Drawing:{
-            id:'2',
-          }   
+        {
+          Drawing: {
+            id: '1',
+            color: 'rgba(0, 0, 255, 1)'
+          }
         },
-        {   
-          Eraser:{
+        {
+          Drawing: {
+            id: '2',
+            color: 'rgba(236, 21, 97, 1)'
+          }
+        },
+        {
+          Drawing: {
+            id: '3',
+          }
+        },
+        {
+          Eraser: {
             lineWidth: '30'
-          }   
-        },  
+          }
+        },
         'Reset',
         "Undo",
         "ExtendVertical",
         "Grid",
         "Question",
         "Close",
-      ]            
+      ]
     });
-    board.getControl('1').switchColor('rgb(236, 21, 97)')
     board.on('changeDrawingColor', function() {
       console.log(arguments)
     });
