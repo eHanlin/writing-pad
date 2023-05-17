@@ -1,4 +1,3 @@
-
 import {isTouchEvent} from '../utils/eventUtils';
 import $ from 'jQuery';
 import BaseDrawingBoardControl from './BaseDrawingBoardControl';
@@ -7,7 +6,7 @@ let GridButton = BaseDrawingBoardControl.extend({
 
   name: 'grid',
 
-  initialize:function() {
+  initialize: function() {
     let ELEMENT_CLASS_NAME = 'drawing-board-control-grid-button';
     this.initializeDefault();
     this.$el.append(`
@@ -34,39 +33,51 @@ let GridButton = BaseDrawingBoardControl.extend({
   },
 
 
-  DRAG_BG_BUTTON:'dragging-bg-button',
+  DRAG_BG_BUTTON: 'dragging-bg-button',
 
-  canDragging:false,
+  canDragging: false,
 
-  _getEventPoint:function(evt) {
+  _getEventPoint: function(evt) {
     var result;
 
     if (evt.pageX == undefined) {
       let originalEvent = evt.originalEvent;
       let changedTouches = originalEvent.changedTouches;
       result = {
-        x:changedTouches[0].pageX,
-        y:changedTouches[0].pageY
+        x: changedTouches[0].pageX,
+        y: changedTouches[0].pageY
       }
     } else {
       result = {
-        x:evt.pageX,
-        y:evt.pageY
+        x: evt.pageX,
+        y: evt.pageY
       };
     }
     return result;
   },
 
-  _initMoveBGEvent:function() {
+  hasMoveBGEvent: false,
+
+  _toggleMoveBGEvent: function() {
     let $wrapper = this.board.__extend._getWrapper()
-    $wrapper.on('mousedown touchstart', (evt)=>{
+
+    if (this.hasMoveBGEvent) {
+      console.log('remove')
+      $wrapper.off('mousedown touchstart')
+      $wrapper.off('mousemove touchmove')
+      $wrapper.off('mouseup touchend');
+
+      return this.hasMoveBGEvent = false
+    }
+
+    $wrapper.on('mousedown touchstart', (evt) => {
       evt.preventDefault();
       this.canDragging = true;
       let evtPoint = this._getEventPoint(evt);
       this.startX = evtPoint.x;
       this.startY = evtPoint.y;
     })
-    $wrapper.on('mousemove touchmove', (evt)=>{
+    $wrapper.on('mousemove touchmove', (evt) => {
       if (this.canDragging) {
         let evtPoint = this._getEventPoint(evt);
         let diffX = evtPoint.x - this.startX;
@@ -78,14 +89,18 @@ let GridButton = BaseDrawingBoardControl.extend({
         //console.log(diffX, diffY, this.getBGPoint(), evt);
       }
     })
-    $wrapper.on('mouseup touchend', (evt)=> this.canDragging = false);
-    let $style = this.$style = $("<style id='drawing-bg-move-style'></style>");
-    $(document.body).append($style);
+    $wrapper.on('mouseup touchend', (evt) => this.canDragging = false);
+
+    if (!this.$style) {
+      let $style = this.$style = $("<style id='drawing-bg-move-style'></style>");
+      $(document.body).append($style);
+    }
+    this.hasMoveBGEvent = true
   },
 
-  DRAWING_TIP_TITLE:"drawing-tip-title",
+  DRAWING_TIP_TITLE: 'drawing-tip-title',
 
-  _setTipTitle:function(title){
+  _setTipTitle: function(title) {
     let $wrapper = this.board.__extend._getWrapper();
     let $drawingTipTitle = $wrapper.find(`.${this.DRAWING_TIP_TITLE}`);
 
@@ -99,45 +114,46 @@ let GridButton = BaseDrawingBoardControl.extend({
     $drawingTipTitle.html(title);
   },
 
-  setBGPoint:function(x, y) {
-    this.$style.html(`.drawing-board-canvas-wrapper.grid:after { background-position-x:${x}px; background-position-y:${y}px;}`);
+  setBGPoint: function(x, y) {
+    this.$style.html(`.drawing-board-canvas-wrapper.grid:after { background-position-x: ${x}px; background-position-y: ${y}px;}`);
     //wrapper = this.board.__extend._getWrapper()
     //tyle = window.getComputedStyle($wrapper[0], ':after')
     //tyle.setPropertyValue('background-position-x', "#{x}px")
     //tyle.setPropertyValue('background-position-y', "#{y}px")
   },
 
-  getBGPoint:function() {
+  getBGPoint: function() {
     let $wrapper = this.board.__extend._getWrapper();
     let style = window.getComputedStyle($wrapper[0], ':after');
     let x = (style.getPropertyValue('background-position-x') || "0").replace(/[%px]/g, "");
     let y = (style.getPropertyValue('background-position-y') || "0").replace(/[%px]/g, "");
     return {
-      x:Number(x),
-      y:Number(y)
+      x: Number(x),
+      y: Number(y)
     }
   },
 
-  //_showDraggingButton:function(){
+  //_showDraggingButton: function(){
   //  this._getDraggingButtonInstance().show()
   //}
 
-  _disableMovingBG:function() {
+  _disableMovingBG: function() {
     let $wrapper = this.board.__extend._getWrapper();
     $wrapper.removeClass('move-bg');
   },
 
-  _enableMovingBG:function() {
+  _enableMovingBG: function() {
     let $wrapper = this.board.__extend._getWrapper();
     $wrapper.addClass('move-bg');
   },
 
-  _toggleMovingBG:function() {
+  _toggleMovingBG: function() {
     let $wrapper = this.board.__extend._getWrapper()
     if (!$wrapper.hasClass('move-bg')) this._enableMovingBG(); else this._disableMovingBG();
+    this._toggleMoveBGEvent();
   },
 
-  _getDraggingButtonInstance:function() {
+  _getDraggingButtonInstance: function() {
     let $wrapper = this.board.__extend._getWrapper();
     let $dragBgButton = $wrapper.find(`.${this.DRAG_BG_BUTTON}`);
 
@@ -146,15 +162,13 @@ let GridButton = BaseDrawingBoardControl.extend({
         <i class="fa fa-arrows" aria-hidden="true"></i>
       </button>`))
       $wrapper.append($dragBgButton)
-      $dragBgButton.on(`${isTouchEvent? "touchstart": "click"}`, ()=> this._toggleMovingBG());
-      this._initMoveBGEvent();
+      $dragBgButton.on(`${isTouchEvent? "touchstart": "click"}`, () => this._toggleMovingBG());
     }
 
     return $dragBgButton;
   },
 
-  DEFAULT_TIP_TEXT:'輔助格線',
+  DEFAULT_TIP_TEXT: '輔助格線',
 });
 
 export default GridButton;
-
