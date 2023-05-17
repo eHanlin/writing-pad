@@ -5,15 +5,15 @@
    
   &[data-control-layout='right'] {
     .drawing-board-controls {
-      right:0;
+      right: 0;
     }
   }
 
   &[data-show-tip] {
     .drawing-board-controls {
       .drawing-board-control {
-        &:before {
-          display:flex !important;
+        &:before, &:after {
+          display: flex !important;
         }
       }
     }
@@ -24,97 +24,112 @@
     .drawing-board-controls {
 
       &.right {
-        right:0px;
+        right: 0px;
 
         .drawing-board-control {
-          
-          &:before {
-            right:@tip-text-x;
-            left:auto;
-            text-align:right;
+
+          &:before, &:after {
+            right: @tip-text-x !important;
+            left: auto !important;
+            text-align: right !important;
           }
 
           .color-tool-box {
-            right:@tip-text-x;
-            left:auto;
+            right: @tip-text-x;
+            left: auto;
           }
         }
       }
       //margin-left:-51px;
-      display:block;
-     
-      .drawing-board-control {
-        display:block;
-        text-align:right;
+      display: block;
 
-        position:relative;
+      .drawing-board-control {
+        display: block;
+        text-align: right;
+        position: relative;
 
         .color-tool-box {
           .color-picker(@tip-text-x);
         }
 
         .pen-size {
-          width:20px;
-          height:20px;
-          display:inline-block;
-          border-radius:50% !important;
-          vertical-align:middle;
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          border-radius: 50% !important;
+          vertical-align: middle;
         }
 
         button.hidden-color-picker + .color-tool-box { 
-          display:none;
+          display: none;
         }
 
         &.drawing-pen + :not(.drawing-pen), &.drawing-board-control-extendVertical {
-          margin-top:10px;
+          margin-top: 10px;
         }
 
         &:before {
-          color:@red;
+          color: @blue;
           display: none;
           justify-content: center;
           flex-direction: column;
-          text-align: center;
           content:attr(data-tip-text);
-          z-index:10;
-          position:absolute;
-          height:100%;
+          z-index: 10;
+          position: absolute;
+          height: 100%;
           left:@tip-text-x;
-          text-align:left;
-          width:120px;
-          pointer-events:none;
-        } 
+          text-align: left;
+          width: 120px;
+          pointer-events: none;
+        }
 
-     
+        &.drawing-board-control-drawing, &.drawing-board-control-eraser {
+          &:after {
+            content: "(可取消以移動畫布)";
+            width: 120px;
+            color: @red;
+            font-size: 0.8rem;
+            text-align: left;
+            position: absolute;
+            left: @tip-text-x;
+            top: calc(50% + 16px);
+            z-index: 10;
+            display: none;
+            justify-content: center;
+            flex-direction: column;
+            pointer-events: none;
+          }
+        }
+
         &.drawing-board-control-drawingmode {
           button {
             //margin:2px auto;
-            display:block;
-            float:right;
-            clear:right; 
-            margin-right:0px;
+            display: block;
+            float: right;
+            clear: right; 
+            margin-right: 0px;
           }
         }
-     
+
         button {
-          outline:0;
-          height:@control-layout-left-width;
-          font-size:18px;
-          margin-top:2px;
-          width:@control-layout-left-width;
-          border-radius:50% !important;
+          outline: 0;
+          height: @control-layout-left-width;
+          font-size: 18px;
+          margin-top: 2px;
+          width: @control-layout-left-width;
+          border-radius: 50% !important;
           //width:100%;
         }
       }
 
       & ~ .drawing-board-canvas-wrapper{
-        margin-left:@control-layout-left-width;
+        margin-left: @control-layout-left-width;
       }
     }
 
     .controls-background {
       &.right {
-        right:0px;
+        right: 0px;
       }
       height: 100%;
       width: 50px;
@@ -123,9 +138,7 @@
       display:block;
       background: url("../@{path}/img/white_brick_wall.png");
       opacity: .95;
-      z-index:100;
+      z-index: 100;
     }
   }
-}  
-
-
+}
