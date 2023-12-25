@@ -15,12 +15,20 @@
         margin: 0 auto;
         /*margin-top: 40px;*/
       }
+      .btn-open-board {
+        position: absolute;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     </style>
     <link rel="stylesheet" href="/node_modules/drawingboard.js/dist/drawingboard.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.css">
   </head>
   <body>
-    <div id="container"></div>
+    <div id="container">
+      <button class="btn-open-board" type="button">開啟手寫板</button>
+    </div>
     <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script src="/node_modules/drawingboard.js/dist/drawingboard.js"></script>
     <script src="/bundle.js"></script>
@@ -66,11 +74,11 @@
       board.on('changeDrawingColor', function() {
         console.log(arguments)
       });
-      board.show()
-      board.resize()
-      board.openHintWritingArea().then(function(){ console.log('done')});
+      // board.show()
+      // board.resize()
+      // board.openHintWritingArea().then(function(){ console.log('done')});
       //board.on('drawing', ()=> console.log('drawing'))
-      board.load('http://s3-ap-northeast-1.amazonaws.com/ehanlin-writing-pad/test/teams/examAnswer/59dee8591d8c5848ea81fae4_0.png');
+      // board.load('http://s3-ap-northeast-1.amazonaws.com/ehanlin-writing-pad/test/teams/examAnswer/59dee8591d8c5848ea81fae4_0.png');
       //board.on('startDrawing', ()=> console.log('startDrawing'))
       /*setTimeout(function(){
         board.toBlob().then(function(blob){
@@ -89,6 +97,13 @@
         }
       });*/
       //board.extendHeight(container.clientHeight / 3);
+
+      document.querySelector('.btn-open-board').addEventListener('click', () => {
+        board.show()
+        board.resize()
+        board.openHintWritingArea().then(function(){ console.log('done')});
+        board.load('http://s3-ap-northeast-1.amazonaws.com/ehanlin-writing-pad/test/teams/examAnswer/59dee8591d8c5848ea81fae4_0.png');
+      })
     </script>
   </body>
 </html>

@@ -5,7 +5,7 @@ import * as random from './utils/random';
 import * as canvasUtils from './utils/canvasUtils';
 import SimpleObserver from './utils/SimpleObserver';
 import {CLOSE, START_DRAWING, BOARD_START_DRAWING, BOARD_STOP_DRAWING, STOP_DRAWING, DRAWING, BOARD_DRAWING} from './constants/Event';
-import {DATA_HINT_AREA, DATA_WRITING_AREA, DATA_CONTROL_LAYOUT} from './constants/WriteAttribute';
+import {DATA_HINT_AREA, DATA_WRITING_AREA, DATA_CONTROL_LAYOUT, DATA_SHOW_TIP} from './constants/WriteAttribute';
 import {LAYOUT_POSITIONS, LEFT_RIGHT} from './constants/ControlsLayout';
 import {DEFAULT as BOARD_DEFAULT} from './constants/Board';
 import {DEFAULT} from './constants/WritingPad';
@@ -13,6 +13,8 @@ import WritingPadHistory from './WritingPadHistory';
 import HistoryManager from './HistoryManager';
 import dataURLtoBlob from 'blueimp-canvas-to-blob';
 import SimulateControls from './SimulateControls';
+
+const WRITING_PAD_CONFIG_KEY = 'ehanlin-writing-pad-confg'
 
 let Promise = window.Promise;
 
@@ -137,7 +139,20 @@ class WritingPad extends SimpleObserver {
 
   show() {
     this.$el.show()
-    this.board.startDrawing();
+    this.board.startDrawing()
+
+    const config = JSON.parse(localStorage.getItem(WRITING_PAD_CONFIG_KEY) || '{}')
+    if (!config.firstOpenDate) {
+      const $boardEl = this.board.__extend.$el
+      $boardEl.attr(DATA_SHOW_TIP, true)
+
+      setTimeout(() => {
+        $boardEl.removeAttr(DATA_SHOW_TIP)
+      }, 5000)
+
+      config.firstOpenDate = new Date()
+      localStorage.setItem(WRITING_PAD_CONFIG_KEY, JSON.stringify(config))
+    }
   }
 
   hide() {
