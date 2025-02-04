@@ -42,6 +42,16 @@ class SimulateControls {
     let refresh = ()=> {
       if (!this.pad.isHidden()) {
         let right = this.board.$el.width() - this.pad.$el.width();
+        let scale = (window.innerHeight / this.$controls.height() * 0.9);
+        if (scale > 1) scale = 1;
+        this.$controls.css('transform', 'scale(' + scale + ')');
+        this.$controls.css('transform-origin', 'top left');
+        this.$el.css('transform', 'scale(' + scale + ')');
+        this.$el.css('transform-origin', 'top right');
+        this.$background.css('transform', 'scaleX(' + scale + ')');
+        this.$background.css('transform-origin', 'left');
+        this.$elBackground.css('transform', 'scaleX(' + scale + ')');
+        this.$elBackground.css('transform-origin', 'right');
         this.$el.offset({top:$(window).scrollTop()}); 
         this.$el.css('right', `${right}px`);
         this.$elBackground.css('right', `${right}px`);
