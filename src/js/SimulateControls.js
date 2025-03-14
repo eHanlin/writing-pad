@@ -23,7 +23,7 @@ class SimulateControls {
     this.$elBackground = $background.clone();
     this.$elBackground.insertAfter($background);
     this.$elBackground.addClass('right');
-    this.$el.css('position', 'absolute');
+    // this.$el.css('position', 'absolute');
   }
 
   simulate() {
@@ -39,35 +39,64 @@ class SimulateControls {
       }
     });
     let requestId = null;
-    let refresh = ()=> {
+    let refresh = (event)=> {
       if (!this.pad.isHidden()) {
-        let right = this.board.$el.width() - this.pad.$el.width();
-        let scale = (window.innerHeight / this.$controls.height() * 0.9);
-        if (scale > 1) scale = 1;
-        this.$controls.css('transform', 'scale(' + scale + ')');
-        this.$controls.css('transform-origin', 'top left');
-        this.$el.css('transform', 'scale(' + scale + ')');
-        this.$el.css('transform-origin', 'top right');
-        this.$background.css('transform', 'scaleX(' + scale + ')');
-        this.$background.css('transform-origin', 'left');
-        this.$elBackground.css('transform', 'scaleX(' + scale + ')');
-        this.$elBackground.css('transform-origin', 'right');
-        this.$el.offset({top:$(window).scrollTop()}); 
-        this.$el.css('right', `${right}px`);
-        this.$elBackground.css('right', `${right}px`);
+        const target = event ? event.target : null;
+        const isViewport = target && target instanceof VisualViewport;
+
+        if (isViewport){
+          const { pageTop, pageLeft, scale, width } = target;
+          const pageRight = window.innerWidth - width - pageLeft;
+          this.$controls.css('top', `${pageTop}px`);
+          this.$controls.css('left', `${pageLeft + 8}px`);
+          this.$controls.css('scale', `${1 / scale}`);
+          this.$background.css('top', `${pageTop - 2 * scale}px`);
+          this.$background.css('left', `${pageLeft}px`);
+          this.$background.css('transform-origin', 'left');
+          this.$background.css('transform', `scaleX(${1 / scale})`);
+          this.$el.css('top', `${pageTop}px`);
+          this.$el.css('right', `${pageRight + 8}px`);
+          this.$el.css('scale', `${1 / scale}`);
+          this.$elBackground.css('top', `${pageTop - 2 * scale}px`);
+          this.$elBackground.css('right', `${pageRight}px`);
+          this.$elBackground.css('transform-origin', 'right');
+          this.$elBackground.css('transform', `scaleX(${1 / scale})`);
+        } else {
+          let right = this.board.$el.width() - this.pad.$el.width();
+          let scale = (window.innerHeight / this.$controls.height() * 0.9);
+          if (scale > 1) scale = 1;
+          this.$controls.css('transform', 'scale(' + scale + ')');
+          this.$controls.css('transform-origin', 'top left');
+          this.$el.css('transform', 'scale(' + scale + ')');
+          this.$el.css('transform-origin', 'top right');
+          this.$background.css('transform', 'scaleX(' + scale + ')');
+          this.$background.css('transform-origin', 'left');
+          this.$elBackground.css('transform', 'scaleX(' + scale + ')');
+          this.$elBackground.css('transform-origin', 'right');
+          this.$el.offset({top:$(window).scrollTop()}); 
+          this.$el.css('right', '8px');
+          this.$elBackground.css('right', `${right}px`);
+        }
         requestId = null;
       }
     };
 
-    let refreshPosition = ()=> {
-      if (requestId == null) requestId = requestAnimationFrame(refresh);
+    let refreshPosition = (event)=> {
+      if (requestId == null) requestId = requestAnimationFrame(() => refresh(event));
     };
     this._refreshPosition = refresh;
 
     $(window).on('resize', refreshPosition);
+    $(window.visualViewport).on('resize', refreshPosition);
     $(window).on('scroll', refreshPosition);
-    this._unbindEventFunctions.push(()=> $(window).off('resize', refreshPosition));
-    this._unbindEventFunctions.push(()=> $(window).off('scroll', refreshPosition));
+    $(window.visualViewport).on('scroll', refreshPosition);
+    this._unbindEventFunctions.push(()=> {
+      $(window).off('resize', refreshPosition)
+      $(window.visualViewport).off('resize', refreshPosition);});
+    this._unbindEventFunctions.push(()=> {
+      $(window).off('scroll', refreshPosition)
+      $(window.visualViewport).off('scroll', refreshPosition);}
+    );
     refreshPosition();
   }
 
