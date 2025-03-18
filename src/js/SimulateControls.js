@@ -41,47 +41,28 @@ class SimulateControls {
     let requestId = null;
     let refresh = ()=> {
       if (!this.pad.isHidden()) {
-        const { pageTop, pageLeft, scale, width, height } = window.visualViewport;
-        const isType1Zoom = Math.floor(width) === window.innerWidth; // type1: Ctrl +/- zoom, type2: pinch zoom
+        const { pageTop, pageLeft, scale, width } = window.visualViewport;
         const pageRight = window.innerWidth - width - pageLeft;
-        const offsetRight = this.board.$el.width() - this.pad.$el.width();
+        const targetTop = pageTop ? `${pageTop}px` : 'unset';
+        const controlScale = (window.innerHeight / this.$controls.height() * 0.9);
+        const targetControlScale = (controlScale > 1 ? 1 : controlScale) / scale;
 
         this.$controls.css('transform-origin', 'top left');
+        this.$controls.css('transform', `scale(${targetControlScale})`);
+        this.$controls.css('top', targetTop);
+        this.$controls.css('left', `${pageLeft + 8 / scale}px`);
         this.$background.css('transform-origin', 'left');
+        this.$background.css('transform', `scaleX(${targetControlScale})`);
+        this.$background.css('top', targetTop);
+        this.$background.css('left', `${pageLeft + 8 / scale}px`);
         this.$el.css('transform-origin', 'top right');
+        this.$el.css('transform', `scale(${targetControlScale})`);
+        this.$el.css('top', targetTop);
+        this.$el.css('right', `${pageRight + 8 / scale}px`);
         this.$elBackground.css('transform-origin', 'right');
-        if (isType1Zoom) {
-          console.log('type1');
-          const controlScale = (window.innerHeight / this.$controls.height() * 0.9);
-          const targetControlScale = controlScale > 1 ? 1 : controlScale;
-          this.$controls.css('top', '0');
-          this.$controls.css('left', 'unset');
-          this.$controls.css('transform', `scale(${targetControlScale})`);
-          this.$background.css('top', 'unset');
-          this.$background.css('left', 'unset');
-          this.$background.css('transform', `scaleX(${targetControlScale})`);
-          this.$el.css('top', '0');
-          this.$el.css('right', '8px');
-          this.$el.css('transform', `scale(${targetControlScale})`);
-          this.$el.offset({ top: $(window).scrollTop() }); 
-          this.$elBackground.css('top', 'unset');
-          this.$elBackground.css('right', `${pageRight + offsetRight}px`);
-          this.$elBackground.css('transform', `scaleX(${targetControlScale})`);
-        } else {
-          console.log('type2');
-          this.$controls.css('top', `${pageTop}px`);
-          this.$controls.css('left', `${pageLeft + 8}px`);
-          this.$controls.css('transform', `scale(${1 / scale})`);
-          this.$background.css('top', `${pageTop - 2 * scale}px`);
-          this.$background.css('left', `${pageLeft}px`);
-          this.$background.css('transform', `scaleX(${1 / scale})`);
-          this.$el.css('top', `${pageTop}px`);
-          this.$el.css('right', `${pageRight + 8}px`);
-          this.$el.css('transform', `scale(${1 / scale})`);
-          this.$elBackground.css('top', `${pageTop - 2 * scale}px`);
-          this.$elBackground.css('right', `${pageRight + offsetRight}px`);
-          this.$elBackground.css('transform', `scaleX(${1 / scale})`);
-        }
+        this.$elBackground.css('transform', `scaleX(${targetControlScale})`);
+        this.$elBackground.css('top', targetTop);
+        this.$elBackground.css('right', `${pageRight + 8 / scale}px`);
         requestId = null;
       }
     };
