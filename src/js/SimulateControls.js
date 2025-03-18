@@ -41,10 +41,12 @@ class SimulateControls {
     let requestId = null;
     let refresh = ()=> {
       if (!this.pad.isHidden()) {
-        const { pageTop, pageLeft, scale, width } = window.visualViewport;
-        const pageRight = window.innerWidth - width - pageLeft;
+        const { pageTop, pageLeft, scale, width, height } = window.visualViewport;
+        const windowWidth = scale === 1 || window.innerWidth > width ? window.innerWidth : window.outerWidth
+        const windowHeight = scale === 1 || window.innerHeight > height ? window.innerHeight : window.outerHeight
+        const pageRight = windowWidth - width - pageLeft;
         const targetTop = pageTop ? `${pageTop}px` : 'unset';
-        const controlScale = (window.innerHeight / this.$controls.height() * 0.9);
+        const controlScale = windowHeight / this.$controls.height() * 0.9;
         const targetControlScale = (controlScale > 1 ? 1 : controlScale) / scale;
 
         this.$controls.css('transform-origin', 'top left');
