@@ -55,7 +55,7 @@ class SimulateControls {
         this.$controls.css('left', `${pageLeft + 8 / scale}px`);
         this.$background.css('transform-origin', 'left');
         this.$background.css('transform', `scaleX(${targetControlScale})`);
-        this.$background.css('top', targetTop);
+        // this.$background.css('top', targetTop);
         this.$background.css('left', `${pageLeft + 8 / scale}px`);
         this.$el.css('transform-origin', 'top right');
         this.$el.css('transform', `scale(${targetControlScale})`);
@@ -63,7 +63,7 @@ class SimulateControls {
         this.$el.css('right', `${pageRight + 8 / scale}px`);
         this.$elBackground.css('transform-origin', 'right');
         this.$elBackground.css('transform', `scaleX(${targetControlScale})`);
-        this.$elBackground.css('top', targetTop);
+        // this.$elBackground.css('top', targetTop);
         this.$elBackground.css('right', `${pageRight + 8 / scale}px`);
         requestId = null;
       }
