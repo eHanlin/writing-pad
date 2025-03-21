@@ -140,6 +140,7 @@ class WritingPad extends SimpleObserver {
   show() {
     this.$el.show()
     this.board.startDrawing()
+    this.board.initialHeight = this.$el.height()
 
     const config = JSON.parse(localStorage.getItem(WRITING_PAD_CONFIG_KEY) || '{}')
     if (!config.firstOpenDate) {
@@ -300,9 +301,13 @@ class WritingPad extends SimpleObserver {
     this._resizeHintText();
     let top = $(window).scrollTop();
 
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isChrome = /chrome/.test(userAgent);
+    isChrome ? this.board.initialScrollY = height * 0.9 : null;
+
     if (slide) {
       $(slideEl).animate({
-        scrollTop:top + height * 0.9
+        scrollTop: top + height * 0.9
       }, slideDuration);
     }
   }

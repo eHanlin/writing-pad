@@ -39,13 +39,29 @@ class SimulateControls {
       }
     });
     let requestId = null;
+    let scrollY = 0;
+    let hasScrolled = false;
+    let lastPageTop = 0;
     let refresh = ()=> {
       if (!this.pad.isHidden()) {
         const { pageTop, pageLeft, scale, width, height } = window.visualViewport;
         const windowWidth = scale === 1 || window.innerWidth > width ? window.innerWidth : window.outerWidth
         const windowHeight = scale === 1 || window.innerHeight > height ? window.innerHeight : window.outerHeight
+        const heightOffset = Math.round(this.board.initialHeight - height);
+        const extendedHeight = Math.round(this.board.$el.height() - this.board.initialHeight);
+        const isExtended = extendedHeight > 0
+        const isScrollingDown = pageTop > lastPageTop;
+        if (isExtended) {
+          scrollY += this.board.initialScrollY || 0;
+          this.board.initialScrollY = null;
+          pageTop > heightOffset ? hasScrolled = true : null;
+          pageTop <= 300 ? hasScrolled = false : null;
+          hasScrolled ?
+            isScrollingDown ? scrollY = Math.max(pageTop - heightOffset, scrollY) : scrollY = scrollY ? Math.min(pageTop, scrollY) : Math.min(pageTop, extendedHeight) :
+            isScrollingDown ? scrollY ? scrollY = Math.min(pageTop, scrollY) : null : scrollY ? scrollY = Math.min(pageTop, scrollY) : null;
+        }
         const pageRight = windowWidth - width - pageLeft;
-        const targetTop = pageTop ? `${pageTop}px` : 'unset';
+        const targetTop = pageTop ? `${pageTop - scrollY}px` : 'unset';
         const controlScale = windowHeight / this.$controls.height() * 0.9;
         const targetControlScale = (controlScale > 1 ? 1 : controlScale) / scale;
 
@@ -65,6 +81,7 @@ class SimulateControls {
         this.$elBackground.css('transform', `scaleX(${targetControlScale})`);
         // this.$elBackground.css('top', targetTop);
         this.$elBackground.css('right', `${pageRight + 8 / scale}px`);
+        lastPageTop = pageTop;
         requestId = null;
       }
     };
