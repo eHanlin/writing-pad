@@ -38,6 +38,8 @@ class SimulateControls {
         this._linkElement($currentElement.find(`[${DATA_SYNC}]`), $(el).find(`[${DATA_SYNC}]`));
       }
     });
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isChrome = /chrome/.test(userAgent);
     let requestId = null;
     let scrollY = 0;
     let hasScrolled = false;
@@ -45,8 +47,8 @@ class SimulateControls {
     let refresh = ()=> {
       if (!this.pad.isHidden()) {
         const { pageTop, pageLeft, scale, width, height } = window.visualViewport;
-        const windowWidth = scale === 1 || window.innerWidth > width ? window.innerWidth : window.outerWidth
-        const windowHeight = scale === 1 || window.innerHeight > height ? window.innerHeight : window.outerHeight
+        const windowWidth = width * scale;
+        const windowHeight = height * scale;
         const heightOffset = Math.round(this.board.initialHeight - height);
         const extendedHeight = Math.round(this.board.$el.height() - this.board.initialHeight);
         const isExtended = extendedHeight > 0
@@ -61,7 +63,7 @@ class SimulateControls {
             isScrollingDown ? scrollY ? scrollY = Math.min(pageTop, scrollY) : null : scrollY ? scrollY = Math.min(pageTop, scrollY) : null;
         }
         const pageRight = windowWidth - width - pageLeft;
-        const targetTop = pageTop ? `${pageTop - scrollY}px` : 'unset';
+        const targetTop = pageTop ? `${pageTop - (isChrome ? window.scrollY : scrollY)}px` : '0';
         const controlScale = windowHeight / this.$controls.height() * 0.9;
         const targetControlScale = (controlScale > 1 ? 1 : controlScale) / scale;
 
