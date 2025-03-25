@@ -67,6 +67,33 @@ class SimulateControls {
         const controlScale = windowHeight / this.$controls.height() * 0.9;
         const targetControlScale = (controlScale > 1 ? 1 : controlScale) / scale;
 
+        if (window.ehanlinWritingPad.displayDevInfo) {
+          console.log('');
+          console.log('============================================');
+          console.log('pageTop', pageTop);
+          console.log('pageLeft', pageLeft);
+          console.log('scale', scale);
+          console.log('width', width);
+          console.log('height', height);
+          console.log('--------------------------------------------');
+          console.log('windowWidth', windowWidth);
+          console.log('windowHeight', windowHeight);
+          console.log('heightOffset', heightOffset);
+          console.log('extendedHeight', extendedHeight);
+          console.log('isExtended', isExtended);
+          console.log('isScrollingDown', isScrollingDown);
+          console.log('--------------------------------------------');
+          console.log('pageRight', pageRight);
+          console.log('targetTop', targetTop);
+          console.log('targetControlScale', targetControlScale);
+          console.log('--------------------------------------------');
+          console.log('manualScrollY', scrollY);
+          console.log('window.scrollY', window.scrollY);
+          console.log('document.body.scrollTop', document.body.scrollTop);
+          console.log('document.documentElement.scrollTop', document.documentElement.scrollTop);
+          console.log('============================================');
+        }
+
         this.$controls.css('transform-origin', 'top left');
         this.$controls.css('transform', `scale(${targetControlScale})`);
         this.$controls.css('top', targetTop);

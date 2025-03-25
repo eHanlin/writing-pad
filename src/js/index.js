@@ -36,8 +36,12 @@ DrawingBoard.Control.Color = ColorButton;
   };
 })();
 
+window.ehanlinWritingPad = {
+  displayDevInfo: false
+}
+
 let exportModule = {
-  build:buildWritingPad
+  build: buildWritingPad
 };
 
 //if (typeof window === 'object') window.writingPad = exportModule;
