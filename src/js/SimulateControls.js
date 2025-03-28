@@ -50,22 +50,26 @@ class SimulateControls {
         const windowWidth = width * scale;
         const windowHeight = height * scale;
         const heightOffset = Math.round(this.board.initialHeight - height);
-        const extendedHeight = Math.round(this.board.$el.height() - this.board.initialHeight);
-        const isExtended = extendedHeight > 0
+        const maxScrollHeight = Math.round(document.documentElement.scrollHeight - document.documentElement.clientHeight);
+        const maxTargetTop = windowHeight - height
         const isScrollingDown = pageTop > lastPageTop;
-        if (isExtended) {
-          scrollY += this.board.initialScrollY || 0;
-          this.board.initialScrollY = null;
-          pageTop > heightOffset ? hasScrolled = true : null;
-          pageTop <= 300 ? hasScrolled = false : null;
-          hasScrolled ?
-            isScrollingDown ? scrollY = Math.max(pageTop - heightOffset, scrollY) : scrollY = scrollY ? Math.min(pageTop, scrollY) : Math.min(pageTop, extendedHeight) :
-            isScrollingDown ? scrollY ? scrollY = Math.min(pageTop, scrollY) : null : scrollY ? scrollY = Math.min(pageTop, scrollY) : null;
-        }
+
+        const isExpanding = !!this.board.initialScrollY
+        const newScrollY = isExpanding && isChrome ? scrollY + this.board.initialScrollY : Math.min(Math.max(0, scrollY, pageTop - maxTargetTop), maxScrollHeight);
+        hasScrolled = !!newScrollY;
+        hasScrolled ?
+          isScrollingDown ?
+            scrollY = Math.round(newScrollY) :
+            scrollY = Math.round(Math.min(pageTop, scrollY)) :
+          scrollY ? scrollY = Math.round(Math.min(pageTop, scrollY)) : null;
+
         const pageRight = windowWidth - width - pageLeft;
-        const targetTop = pageTop ? `${pageTop - (isChrome ? window.scrollY : scrollY)}px` : '0';
+        const targetTop = isChrome ?
+          `${Math.min(Math.max(pageTop - window.pageYOffset, 0), maxTargetTop)}px` :
+          `${Math.min(Math.max(pageTop - scrollY, 0), maxTargetTop)}px`;
         const controlScale = windowHeight / this.$controls.height() * 0.9;
         const targetControlScale = (controlScale > 1 ? 1 : controlScale) / scale;
+        this.board.initialScrollY = null;
 
         if (window.ehanlinWritingPad.displayDevInfo) {
           console.log('');
@@ -79,8 +83,9 @@ class SimulateControls {
           console.log('windowWidth', windowWidth);
           console.log('windowHeight', windowHeight);
           console.log('heightOffset', heightOffset);
-          console.log('extendedHeight', extendedHeight);
-          console.log('isExtended', isExtended);
+          console.log('maxScrollHeight', maxScrollHeight);
+          console.log('maxTargetTop', maxTargetTop);
+          console.log('hasScrolled', hasScrolled);
           console.log('isScrollingDown', isScrollingDown);
           console.log('--------------------------------------------');
           console.log('pageRight', pageRight);
@@ -88,9 +93,11 @@ class SimulateControls {
           console.log('targetControlScale', targetControlScale);
           console.log('--------------------------------------------');
           console.log('manualScrollY', scrollY);
-          console.log('window.scrollY', window.scrollY);
+          console.log('window.pageYOffset', window.pageYOffset);
           console.log('document.body.scrollTop', document.body.scrollTop);
           console.log('document.documentElement.scrollTop', document.documentElement.scrollTop);
+          console.log('document.documentElement.scrollHeight', document.documentElement.scrollHeight);
+          console.log('document.documentElement.clientHeight', document.documentElement.clientHeight);
           console.log('============================================');
         }
 

@@ -301,9 +301,7 @@ class WritingPad extends SimpleObserver {
     this._resizeHintText();
     let top = $(window).scrollTop();
 
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isChrome = /chrome/.test(userAgent);
-    isChrome ? this.board.initialScrollY = height * 0.9 : null;
+    this.board.initialScrollY = height * 0.9;
 
     if (slide) {
       $(slideEl).animate({
