@@ -59,11 +59,14 @@ class WritingPad extends SimpleObserver {
   }
 
   _initDOM(container, id, opts) {
-    let $board = this._buildContainerElement(id, opts);
-    let $container = $(container);
-    $board.hide();
-    $container.append($board);
-    this.$el = $board;
+    container = container || document.createElement('div');
+    container.classList.add('writing-pad-container');
+    container.setAttribute(DATA_WRITING_AREA, opts.hintAreaText || '');
+
+    const $container = $(container);
+    $container.append(this._buildContainerElement(id, opts));
+    $container.hide();
+    this.$el = $container;
     if (opts && opts.canvasWidth) this._setInnerContentWidth(opts.canvasWidth);
   }
 
@@ -102,15 +105,13 @@ class WritingPad extends SimpleObserver {
 
   _buildContainerElement(id, opts) {
     return $(`
-      <div class="writing-pad-container" ${DATA_WRITING_AREA}="${opts.hintAreaText}">
-        <div class="hint-area-text">
-          ${opts.hintAreaText}
-        </div>
-        <div class="writing-inner-content">
-          <div class="writing-pad-mask">
-            <div id='${id}'>
-              <div class="controls-background"></div>
-            </div>
+      <div class="hint-area-text">
+        ${opts.hintAreaText}
+      </div>
+      <div class="writing-inner-content">
+        <div class="writing-pad-mask">
+          <div id='${id}'>
+            <div class="controls-background"></div>
           </div>
         </div>
       </div>
