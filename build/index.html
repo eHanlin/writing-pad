@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <title></title>
     <style>
       body {
@@ -10,36 +10,61 @@
         padding: 0;
       }
       #container {
-        /*background: red;*/
-        background: #fafafa;
-        position: relative;
-        /*width: 500px;*/
         width: 100%;
         height: 100vh;
         margin: 0 auto;
-        /*margin-top: 40px;*/
+        /* padding: 40px 5%; */
+        padding: 40px;
+        background: #FAFAFA;
+        box-sizing: border-box;
       }
-      .btn-open-board {
+      #container .tool {
+        text-align: center;
+        position: relative;
+        z-index: 9999;
+      }
+      #container .item {
+        width: 100%;
+        margin: 36px auto 0;
+      }
+      #container .item .writing-pad {
+        width: 100%;
+        height: 100%;
+      }
+      #container .item .writing-pad.on {
         position: absolute;
-        top: 120px;
-        left: 50%;
-        transform: translateX(-50%);
+        top: 0;
+        left: 0;
+        z-index: 999;
       }
     </style>
     <link rel="stylesheet" href="/node_modules/drawingboard.js/dist/drawingboard.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.css">
+    <script src="https://itembank.s3.ap-southeast-1.amazonaws.com/v1/api/questionItem/latest/questionItemAPI.js"></script>
   </head>
   <body>
     <div id="container">
-      <button class="btn-open-board" type="button">開啟手寫板</button>
+      <div class="tool">
+        <button class="btn-open-board" type="button">開啟手寫板</button>
+      </div>
+      <div class="item">
+        <div class="question-item"></div>
+        <div class="writing-pad"></div>
+      </div>
     </div>
     <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script src="/node_modules/drawingboard.js/dist/drawingboard.js"></script>
     <script src="/bundle.js"></script>
     <script>
-      var container = document.querySelector("#container");
-      //var board = writingPad.build(container, {canvasWidth:1000, useMovingGesture:true, controlsLayout:'left-right', isDrawingOnEvent:true});
-      var board = writingPad.build(container, {
+      const container = document.querySelector("#container");
+      const toolWrap = container.querySelector('.tool');
+      const itemWrap = container.querySelector('.item');
+
+      const buttonOpenBoard = toolWrap.querySelector('.btn-open-board');
+      const questionItem = itemWrap.querySelector('.question-item');
+      const writingPadEle = itemWrap.querySelector('.writing-pad');
+
+      const board = writingPad.build(writingPadEle, {
         canvasWidth: 1000,
         useMovingGesture: true,
         controlsLayout: 'left-right',
@@ -74,39 +99,20 @@
           "Question",
           "Close",
         ]
-      });
+      })
       board.on('changeDrawingColor', function() {
         console.log(arguments)
-      });
-      // board.show()
-      // board.resize()
-      // board.openHintWritingArea().then(function(){ console.log('done')});
-      //board.on('drawing', ()=> console.log('drawing'))
-      // board.load('http://s3-ap-northeast-1.amazonaws.com/ehanlin-writing-pad/test/teams/examAnswer/59dee8591d8c5848ea81fae4_0.png');
-      //board.on('startDrawing', ()=> console.log('startDrawing'))
-      /*setTimeout(function(){
-        board.toBlob().then(function(blob){
-          var url = URL.createObjectURL(blob);
-          var image = new Image();
-          image.src = url;
-          image.style.cssText = "width:100%;";
-          document.body.appendChild(image);
-        });
-      },5000);*/
-      /*document.body.querySelector('canvas').addEventListener('touchstart', function (evt){
-        console.log(evt.targetTouches);
-        if(evt.targetTouches.length) {
-          evt.stopPropagation()
-          evt.preventDefault()
-        }
-      });*/
-      //board.extendHeight(container.clientHeight / 3);
+      })
 
-      document.querySelector('.btn-open-board').addEventListener('click', () => {
+      const option = {}
+      questionItemAPI.create('c0f841e2355d4755974867d3c9287e36', option, questionItem)
+
+      buttonOpenBoard.addEventListener('click', () => {
+        writingPadEle.classList.add('on')
         board.show()
         board.resize()
-        board.openHintWritingArea().then(function(){ console.log('done')});
-        board.load('http://s3-ap-northeast-1.amazonaws.com/ehanlin-writing-pad/test/teams/examAnswer/59dee8591d8c5848ea81fae4_0.png');
+        board.openHintWritingArea().then(function(){ console.log('done')})
+        board.load('http://s3-ap-northeast-1.amazonaws.com/ehanlin-writing-pad/test/teams/examAnswer/59dee8591d8c5848ea81fae4_0.png')
       })
     </script>
   </body>
