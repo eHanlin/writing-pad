@@ -94,7 +94,9 @@
         console.log(arguments)
       })
 
-      const option = {}
+      const option = {
+        showAnalysisToggler: true
+      }
       questionItemAPI.create('c0f841e2355d4755974867d3c9287e36', option, questionItem)
 
       buttonOpenBoard.addEventListener('click', () => {

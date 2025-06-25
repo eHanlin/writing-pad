@@ -9,8 +9,11 @@
 
 .writing-pad-container {
   width: 100%;
-  height: 100%;
-  // overflow: hidden;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 
   .hidden {
     display: none;
@@ -41,7 +44,6 @@
       // padding-left: 20px;
       // padding-right: 20px;
       box-sizing: border-box;
-      overflow: hidden;
 
       &>.drawing-board-controls {
         padding-top: 30px;
