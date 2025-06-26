@@ -59,14 +59,11 @@ class WritingPad extends SimpleObserver {
   }
 
   _initDOM(container, id, opts) {
-    container = container || document.createElement('div');
-    container.classList.add('writing-pad-container');
-    container.setAttribute(DATA_WRITING_AREA, opts.hintAreaText || '');
-
+    const $board = this._buildContainerElement(id, opts);
     const $container = $(container);
-    $container.append(this._buildContainerElement(id, opts));
-    $container.hide();
-    this.$el = $container;
+    $board.hide();
+    $container.append($board);
+    this.$el = $board;
     if (opts && opts.canvasWidth) this._setInnerContentWidth(opts.canvasWidth);
   }
 
@@ -105,13 +102,15 @@ class WritingPad extends SimpleObserver {
 
   _buildContainerElement(id, opts) {
     return $(`
-      <div class="hint-area-text">
-        ${opts.hintAreaText}
-      </div>
-      <div class="writing-inner-content">
-        <div class="writing-pad-mask">
-          <div id='${id}'>
-            <div class="controls-background"></div>
+      <div class="writing-pad-container" ${DATA_WRITING_AREA}="${opts.hintAreaText}">
+        <div class="hint-area-text">
+          ${opts.hintAreaText}
+        </div>
+        <div class="writing-inner-content">
+          <div class="writing-pad-mask">
+            <div id='${id}'>
+              <div class="controls-background"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -140,6 +139,7 @@ class WritingPad extends SimpleObserver {
 
   show() {
     this.$el.show()
+    this.$el.height(document.body.scrollHeight)
     this.board.startDrawing()
     this.board.initialHeight = this.$el.height()
 
